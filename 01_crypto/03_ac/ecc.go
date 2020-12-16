@@ -8,8 +8,6 @@ import (
 	"fmt"
 	"log"
 	"math/big"
-
-	"github.com/ethereum/go-ethereum/crypto/secp256k1"
 )
 
 // 生成公私钥对，
@@ -25,17 +23,6 @@ func NewKeyPair() (*ecdsa.PrivateKey, []byte) {
 	publicBytes := elliptic.Marshal(curve, privateKey.X, privateKey.Y)
 	fmt.Printf("公钥：%x\n", publicBytes)
 	return privateKey, publicBytes
-}
-
-// 生成比特币地址
-func GenerateKeyPair() (pubKey, privKey []byte) {
-	key, err := ecdsa.GenerateKey(secp256k1.S256(), rand.Reader)
-	if err != nil {
-		panic(err)
-	}
-	pubKey = elliptic.Marshal(secp256k1.S256(), key.X, key.Y)
-	privKey = key.D.Bytes()
-	return
 }
 
 // ECDSA数字签名
